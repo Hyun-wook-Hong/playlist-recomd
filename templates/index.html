@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 락 & 메탈 플레이리스트 생성기</title>
+    
+    <!-- ✅ Bootstrap CSS 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- ✅ Google Fonts & Custom CSS -->
+    <style>
+        body {
+            background-color: #f0f5ff; /* 연한 파란색 배경 */
+            color: #1e3a8a; /* 진한 파란색 텍스트 */
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+        }
+        .form-select, .btn {
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background-color: #1e3a8a;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #3b82f6;
+        }
+        .playlist {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f5ff;
+            border-radius: 10px;
+        }
+        .playlist a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .playlist a:hover {
+            text-decoration: underline;
+        }
+        .spotify-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎸 나만의 Spotify 플레이리스트 만들기 🎶</h1>
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="mood" class="form-label">오늘 기분은?</label>
+            <select name="mood" id="mood" class="form-select">
+                <option value="기분 좋아!">기분 좋아!</option>
+                <option value="짜증 나!">짜증 나!</option>
+                <option value="우울해…">우울해…</option>
+                <option value="에너지가 넘쳐!">에너지가 넘쳐!</option>
+                <option value="고독해…">고독해…</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="genre" class="form-label">원하는 음악 장르:</label>
+            <select name="genre" id="genre" class="form-select">
+                <option value="Rock">Rock</option>
+                <option value="Alternative Rock">Alternative Rock</option>
+                <option value="Metal">Metal</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">🎶 추천 곡 보기</button>
+        <button type="submit" name="create_playlist" value="1" class="btn btn-outline-primary w-100 mt-2">🎵 Spotify 플레이리스트 생성</button>
+    </form>
+
+    {% if playlist %}
+        <div class="playlist">
+            <h2>🎶 추천된 플레이리스트 🎶</h2>
+            <ul class="list-group">
+                {% for song in playlist %}
+                    <li class="list-group-item">
+                        <a href="{{ song.url }}" target="_blank">{{ song.name }} - {{ song.artist }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if spotify_link %}
+        <div class="spotify-link">
+            <h2>✅ Spotify 플레이리스트가 생성되었습니다!</h2>
+            <a href="{{ spotify_link }}" target="_blank" class="btn btn-primary">🎵 플레이리스트 바로 가기</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- ✅ Bootstrap JS 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
